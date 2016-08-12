@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+             
+             	
+	
+ 
+
+             
+             
+	<!-- 总说明
+		1.位置是固定的
+		2.使用Spring整合JPA的时候可以丢掉此文件。
+	
+	 -->
+	
+	
+	<!-- 持久化单元名 -->
+	<persistence-unit name="HelloJPA" transaction-type="RESOURCE_LOCAL">
+		
+		
+		<!-- 配置使用什么产品作为JAP实现
+			1.实际上配置的是 javax.persistence.spi.PersistenceProvider 实现类，
+			  老的实现类是org.hibernate.ejb.HibernatePersistence
+			  
+			2.如果JPA项目中只有一个JPA的实现产品，可以不配置该节点  
+		 -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+		
+		
+		
+		<!-- 添加持久化类 -->
+		<class>com.atguigu.jpa.helloworld.Order</class>
+		<class>com.atguigu.jpa.helloworld.Manager</class>
+		<class>com.atguigu.jpa.helloworld.Department</class>
+		<class>com.atguigu.jpa.helloworld.Item</class>
+		<class>com.atguigu.jpa.helloworld.Category</class>
+		<class>com.atguigu.jpa.helloworld.Customer</class>
+		
+		
+		<!-- Persion是Spring中测试的实体，跟本文件无关，这里还写上是为了让Eclipse不报错而已，无他用 -->
+		<class>com.atguigu.jpa.spring.Person</class>
+		
+		
+		
+
+
+		<!--  配置二级缓存的策略 
+		ALL：所有的实体类都被缓存
+		NONE：所有的实体类都不被缓存. 
+		ENABLE_SELECTIVE：标识 @Cacheable(true) 注解的实体类将被缓存
+		DISABLE_SELECTIVE：缓存除标识 @Cacheable(false) 以外的所有实体类
+		UNSPECIFIED：默认值，JPA 产品默认值将被使用
+		-->
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		
+				
+		
+		
+		<properties>
+		
+			<!-- MySQL_Connection 配置-->
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jpa?useSSL=false" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="12369" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			 
+			
+			
+			<!-- Oracle_Connection 配置 
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe"/>  
+			<property name="javax.persistence.jdbc.user" value="scott"/>
+			<property name="javax.persistence.jdbc.password" value="tiger"/>
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+			-->
+		
+			<!-- 配置JPA实现产品Hibernate的属性 -->
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			
+			<!-- 二级缓存相关 -->
+			<property name="hibernate.cache.use_second_level_cache" value="true"/>
+			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
+			<property name="hibernate.cache.use_query_cache" value="true"/>
+			
+		
+		</properties>
+		
+		
+		
+		
+		
+		
+	</persistence-unit>
+</persistence>

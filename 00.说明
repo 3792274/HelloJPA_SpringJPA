@@ -1,0 +1,36 @@
+代码来自：atGuiGu
+
+
+1.新建JAP工程，转为maven工程，修改pom.xml添加hibernate等依赖（mysql-connector-java、hibernate-jpa-2.1-api、hibernate-entitymanager、junit）
+2.修改 persistence.xml。
+
+3.使用最多的是单向多对一关系。
+	1个客户Customer（没有List<Order>对象）
+		 ->  
+    n个Order(有Customer对象，@JoinColumn(name = "CUSTOMER_ID") 、@ManyToOne(fetch = FetchType.LAZY)) 
+
+
+
+4.	懒加载   -  @OneToMany(fetch=FetchType.LAZY)   单向一对多默认
+    非懒加载 -  @OneToMany(fetch=FetchType.EAGER)  单向多对一默认
+    
+    
+5.级联关系
+		@OneToMany(cascade={CascadeType.REMOVE})   单向一对多默认不会级联删除，会将多的一端order引用的外键置空
+		
+		
+		
+-------------------------------------------------------------------------------------------------		
+6.Spring整合JPA(需要c3p0，不需要eh_cache,Spring,springmvc,springdata,jpa-sssp时候用)
+		1.Spring管理JPA的EntityManagerFactory
+		2.使用Spring的声明式事务
+		3.为了Eclipse不报错，禁用 persistence.xml.bak
+	步骤：
+		1.配置pom.xml增加相关Jar
+		2.新增spring配置文件：新建，spring-beans-config,applicationContext.xml
+		3.修改applicationContext.xml
+		4.增加实体类 Persion
+		5.编写persionDao,Server，TEST
+		
+		
+	
