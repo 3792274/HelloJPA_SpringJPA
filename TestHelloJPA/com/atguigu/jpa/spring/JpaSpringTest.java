@@ -1,7 +1,5 @@
 package com.atguigu.jpa.spring;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -16,14 +14,14 @@ public class JpaSpringTest {
 	private ApplicationContext ctx=null;
 	private PersonService personService = null;
 	
-	
-	{
-		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		personService = ctx.getBean(PersonService.class);
-		
-	}
 
-	
+	   
+    {
+        ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        personService = ctx.getBean(PersonService.class);
+        
+    }
+
 	
 	@Test
 	public void testDataSources() throws SQLException {
